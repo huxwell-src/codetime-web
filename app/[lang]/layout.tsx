@@ -4,17 +4,21 @@ import ja from '../../components/i18n/data/ja.json'
 import zhCN from '../../components/i18n/data/zh-CN.json'
 import zhTW from '../../components/i18n/data/zh-TW.json'
 import ptBR from '../../components/i18n/data/pt-BR.json'
+import es from '../../components/i18n/data/es.json'
 import { cookies } from 'next/dist/client/components/headers'
 import { Provider } from './provider'
 import { type Metadata } from 'next'
 import Script from 'next/script'
 
-export type localeTypes = 'en' | 'ja' | 'zh-CN' | 'zh-TW' | 'pt-BR'
-export const locales = ['en', 'zh-CN', 'zh-TW', 'ja', 'pt-BR']
-export function getData (locale: string) {
+
+export type localeTypes = 'en' | 'es' | 'ja' | 'zh-CN' | 'zh-TW' | 'pt-BR'
+export const locales = ['en', 'es' , 'zh-CN', 'zh-TW', 'ja', 'pt-BR']
+export function getData(locale: string) {
   switch (locale) {
     case 'en':
       return en
+    case 'es':
+      return es
     case 'ja':
       return ja
     case 'zh-CN':
@@ -28,7 +32,7 @@ export function getData (locale: string) {
   }
 }
 
-export async function generateMetadata (
+export async function generateMetadata(
   { params }: { params: { lang: string }, searchParams: URLSearchParams },
 ): Promise<Metadata> {
   // read route params
@@ -48,6 +52,10 @@ export async function generateMetadata (
     case 'en':
       title = 'CodeTime - Track your coding time'
       description = 'CodeTime is a time tracking tool for programmers. It enhances sense of achievement and motivation in programming by tracking your coding time.'
+      break
+    case 'es':
+      title = 'CodeTime - Rastrea tu tiempo de codificación'
+      description = 'CodeTime es una herramienta de seguimiento del tiempo para programadores. Aumenta el sentido de logro y la motivación en la programación mediante el seguimiento de su tiempo de codificación.'
       break
     case 'ja':
       title = 'CodeTime - コーディング時間を追跡する'
@@ -70,7 +78,7 @@ export async function generateMetadata (
       name: 'Jannchie',
     }, {
       name: 'Si9ma',
-      }],
+    }],
     icons: ['/icon.svg'],
     keywords: 'CodeTime, time tracking, programming, programmer, coding, time, track, productivity, motivation, achievement, Wakatime',
     openGraph: {
@@ -87,7 +95,7 @@ export async function generateMetadata (
     },
   }
 }
-export default function Layout ({
+export default function Layout({
   children,
   params: { lang },
 }: {
@@ -121,7 +129,7 @@ export default function Layout ({
       <body className="h-screen">
         <I18nProvider data={data}>
           <Provider>
-            { children }
+            {children}
           </Provider>
         </I18nProvider>
       </body>
